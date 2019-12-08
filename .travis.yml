@@ -4,6 +4,7 @@ env:
     - test_variable_one=$(if [ 1 == 1 ]; then echo true; else echo false; fi)
     - test_variable_two=$(if [ 1 == 2 ]; then echo true; else echo false; fi)
     - test_variable_three=$(if [ 1 == whateva ]; then echo true; else echo false; fi)
+    - test_variable_four=false
 jobs:
   include:
     - name: Test 1 with = 'true' condition
@@ -16,9 +17,13 @@ jobs:
       if: env(test_variable_two)=true
     - name: Test 3 with IS true condition
       script:
-        - echo "Hello world" && echo "Test 2 has been run"
+        - echo "Hello world" && echo "Test 3 has been run"
       if: env(test_variable_three) IS true
     - name: Test 4 equating to complete bash liner
       script:
-        - echo "Hello world" && echo "Test 2 has been run"
+        - echo "Hello world" && echo "Test 4 has been run"
       if: env(test_variable_three) = '$(if [ 1 == whateva ]; then echo true; else echo false; fi)'
+    - name: Test 5 with IS true condition but value is false
+      script:
+        - echo "Hello world" && echo "Test 5 has been run"
+      if: env(test_variable_four) IS true
