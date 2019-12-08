@@ -1,0 +1,19 @@
+env:
+  global:
+    - test_variable_one=true
+    - test_variable_two=false
+    - test_variable_three="I exist"
+jobs:
+  include:
+    - name: Test 1
+      script:
+        - echo "Hello world" && echo "Test 1 has been run"
+      if: env(test_variable_one)='true'
+    - name: Test 2
+      script:
+        - echo "Hello world" && echo "Test 2 has been run"
+      if: env(test_variable_two)='true'
+    - name: Test 3
+      script:
+        - echo "Hello world" && echo "Test 2 has been run"
+      if: env(test_variable_three) IS true
